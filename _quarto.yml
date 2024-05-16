@@ -16,6 +16,13 @@ website:
         file: index.qmd
       - text: "Contact"
         href: ../contact.html
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href:  https://github.com/Paulogcd/blog
+          - text: Report a Bug
+            href:  https://github.com/Paulogcd/blog/issues
 
 format:
   html:
