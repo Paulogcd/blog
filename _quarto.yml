@@ -5,13 +5,14 @@ project:
 website:
   title: "My Blog"
   navbar:
+    background: '#BEDDBA'
     title: false
     left: 
       - text: "Home"
         href: ../
       - text: "Projects"
         href: ../projects
-      - text: "My blog"
+      - text: "Blog"
         file: index.qmd
       - text: "Contact"
         href: ../contact.html
