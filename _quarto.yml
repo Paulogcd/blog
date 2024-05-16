@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "My Blog"
+  navbar:
+    title: false
+    left: 
+      - text: "Home"
+        href: ../
+      - text: "Projects"
+        href: ../projects
+      - text: "My blog"
+        href: index.qmd
+      - text: "Contact"
+        file: ../contact
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
