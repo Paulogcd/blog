@@ -12,9 +12,9 @@ website:
       - text: "Projects"
         href: ../projects
       - text: "My blog"
-        href: index.qmd
+        file: index.qmd
       - text: "Contact"
-        file: ../contact
+        href: ../contact.html
 
 format:
   html:

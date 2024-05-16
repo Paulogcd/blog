@@ -1,31 +1,10 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Articles",
     "section": "",
-    "text": "About this blog"
-  },
-  {
-    "objectID": "Test/template.html",
-    "href": "Test/template.html",
-    "title": "Test Template",
-    "section": "",
-    "text": "TODO Create a template that demonstrates the appearance, formatting, layout, and functionality of your format. Learn more about journal formats at https://quarto.org/docs/journals/."
-  },
-  {
-    "objectID": "Test/template.html#sec-intro",
-    "href": "Test/template.html#sec-intro",
-    "title": "Test Template",
-    "section": "",
-    "text": "TODO Create a template that demonstrates the appearance, formatting, layout, and functionality of your format. Learn more about journal formats at https://quarto.org/docs/journals/."
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
+    "text": "Purpose statement\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMay 16, 2024\n\n\nPaulo Gugelmo Cavalheiro Dias\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Purpose Statement/index.html",
@@ -33,12 +12,5 @@
     "title": "Purpose statement",
     "section": "",
     "text": "Hello, I am Paulo Gugelmo Cavalheiro Dias, currently a graduate level economics students, and this is the first post of my blog, in which I would like to write its purpose statement.\nI want this blog to be a way of sharing my progress in the topics I am interested in, i.e. economics and related subjects, such as programming for social sciences, environmental economics, etc. To do so, I will try to write regular reports on my work in social science, about my classes, readings and other materials."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "My blog",
-    "section": "",
-    "text": "Purpose statement\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMay 16, 2024\n\n\nPaulo Gugelmo Cavalheiro Dias\n\n\n\n\n\n\nNo matching items"
   }
 ]
