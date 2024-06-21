@@ -1,0 +1,187 @@
+---
+title: "Linear Regressions with Julia"
+author: "Paulo Gugelmo Cavalheiro Dias"
+date: today
+categories:
+ - julia 
+ - statistics
+jupyter: julia-1.10
+draft: true
+---
+
+I have had an introduction class to Julia, and I know a bit about the reputation of the language, being very efficient with scientific computations. I finally wanted to give it a try.
+
+In this article, I will try to create some basic statistical models with Julia, and to plot them. 
+
+## Simple linear regression
+
+Here, let's try to explain one continuous variable by one continuous variable. 
+
+First, those are the packages we are going to use : 
+```{julia}
+using Plots
+using GLM
+```
+
+- The [Plots package](https://docs.juliaplots.org/stable/) seems to be the best package to plot data with Julia. It is a simple interface to several underlying plotting packages, like **gr** or **plotly**. If those names do not ring a bell, they just refer to different plotting packages that have different plotting attributes and characteristics. 
+
+- The [GLM package](https://juliastats.org/GLM.jl/stable/) seems to be the main package for Generalized Linear Models (GLM) with Julia. It will be useful in the computation of our simple and multinomial linear models.
+
+Now, let us generate some data : 
+
+```{julia}
+#Generate data : 
+y,x = rand(100),rand(100)
+y .+= 2
+
+# Check the data :
+size(x)
+```
+The function `rand()` in Julia allows to randomly generate numbers. The default settings of the function make it so that the drawned data are `Float64` between $0$ and $1$. Its argument, set to the value of $100$, indicates the number of random values that are to be drawned. Therefore, `rand(100)` returns a vector of 100 Float64 numbers.
+
+The `.+` function is a vectorized addition. In Julia, adding a dot `.` before an operator allows to apply this operation to all the elements of a vector. If we wanted to multiply all the elements of the `y` vector, we should have done `y .*= 2`. The following `=` is just a short way of writing an incrementation, in this sense, `y .+= 2` is a shorter syntax of `y = y .+ 2`.
+
+The other function `size()` is useful to get more information about the type of variable we consider. In our case, it yields `(100,)` because it is a $100$ rows vector. We would get the same 
+
+Now, let us plot the data we just created : 
+
+```{julia}
+plot(
+	scatter(x,y, label = "data"),
+	title = "Generating Random Data",
+	ylabel = "Random variable + 2",
+	xlabel = "Random variable",
+)
+```
+
+The function `plot()` in Julia comes from the Plots package. It is the default plotting function.
+The function `scatter()` allows to plot a scatterplot, i.e. independent points that are not linked by a line. If we had not indicated the `scatter()` function, it would have plotted a line between all the points. The `label` value is the one that gets displayed within the box. Specifying "data" allows to avoid the "y1" default value.
+
+It is now time to run a simple linear regression.
+I found two simple ways to run this model : 
+
+- Using the GLM package,
+- Using the built-in matrix computation function of Julia. 
+
+### GLM package
+
+First, with the GLM package : 
+
+```{julia}
+model = lm(@formula(y ~ x), (;x, y))
+GLM.coeftable(model)
+model
+```
+
+Now, if we want to plot our model with the data, we can run : 
+```{julia}
+coefs = GLM.coef(model)
+plot!((x) -> coefs[1] + coefs[2] * x, 0, 1, label="model")
+```
+
+### Matrix computation
+
+Second, with the built-in matrix computation function : 
+
+```{julia}
+vec_1 = ones(length(x))
+X = transpose([transpose(vec_1);transpose(x)])
+(X\y)
+```
+
+
+### Performance comparison
+
+We see that both approaches yield the same result, but what are the differences between them ? 
+Apart from the syntax, we could check the performance of each of them.
+In order for us to do that, we are going to use the `@time` function, which returns the time and space used by a chosen function.
+
+:::: {.column-page layout-ncol=2}
+::: {.column}
+Matrix approach : 
+```{julia}
+@time begin
+	vec_1 = ones(length(x))
+	X = transpose([transpose(vec_1);transpose(x)])
+	(X\y)
+end
+```
+:::
+:::{.column}
+GLM approach :
+```{julia}
+@time begin 
+	model = lm(@formula(y ~ x), (;x, y))
+	GLM.coef(model)[1:2]
+end
+```
+:::
+:::
+
+If we compare the information returned by the `@time` function, we see that the matrix computation approach seems to be slightly faster. However, we have to take into account that the `lm()` function does not only compute the coefficients, but alswo other informations, that are here not displayed, such as the confidence interval, and the probability associated to the t-statistic. In this sense, this comparison does not make justice to the GLM package. We can however remember that if we only wanted the coefficients of such a model, we could prefer the matrix multiplication approach if we need time. 
+
+## Multiple linear regression
+
+Here, let us try to explain one continuous variable by multiple continuous variables.
+
+Again, we first have to generate and plot the data : 
+
+```{julia}
+# Generating random data :
+w,y,x,z = (rand(100) for _ in 1:5)
+
+# Plotting the data :
+plot(scatter(x, y, z, marker_z = w, label="data"))
+```
+
+Now, we could continue with the plot function of the default **gr** backend package of `Plots`, but to get rotable 3D plots, we can use the PlotlyJS package.
+Since Plot.jl integrates plotly, we could try just adding `plotly()` : 
+
+
+```{julia}
+#| eval: false
+# We switch from the gr() to the plotlyjs() backend within Plots :
+plotlyjs()
+# We plot :
+plot(scatter(x, y, z;
+		marker_z = w,
+		markersize = 2, 
+		label = "data"))
+
+```
+
+Now, let us run the model. 
+Let us say that we want to explain y by w, x, and z.
+We are going to use the two methods we saw previously. 
+
+```{julia}
+# Using GLM : 
+@time begin 
+	model = lm(@formula(y ~ w + x + z), (;w, x, y, z))
+	coefs = GLM.coef(model)
+end
+# Using matrix computations :
+@time begin
+	X = transpose([transpose(ones(length(x))); transpose(x); transpose(z); transpose(w)])
+	X\y
+end
+# coefs are the same as X\y
+```
+
+Now let's try to plot this regressin (it does not work yet) : 
+```{julia}
+size(coefs)
+```
+
+```{julia}
+size(w)
+size(x)
+size(z)
+```
+
+Trying to plot : (Does not work)
+```{julia}
+# | eval: false
+plot!((x) -> coefs[1] + coefs[2] * x, 0, 1, label="fit_exact")
+plot!((x) -> coefs[1] + coefs[2] * w + coefs[3] * x + coefs[4] * z, 0,1, label = "fit")
+```
