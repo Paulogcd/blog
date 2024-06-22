@@ -30,18 +30,18 @@ using GLM
 Now, let us generate some data : 
 
 ```{julia}
+x = range(0, 1, length=10)
 #Generate data : 
-y,x = rand(100),rand(100)
-y .+= 2
+y = rand(10) .* x
 
 # Check the data :
-size(x)
+size(y)
 ```
-The function `rand()` in Julia allows to randomly generate numbers. The default settings of the function make it so that the drawned data are `Float64` between $0$ and $1$. Its argument, set to the value of $100$, indicates the number of random values that are to be drawned. Therefore, `rand(100)` returns a vector of 100 Float64 numbers.
+The function `rand()` in Julia allows to randomly generate numbers. The default settings of the function make it so that the drawned data are `Float64` between $0$ and $1$. Its argument, set to the value of $10$, indicates the number of random values that are to be drawned. Therefore, `rand(10)` returns a vector of 10 Float64 numbers.
 
-The `.+` function is a vectorized addition. In Julia, adding a dot `.` before an operator allows to apply this operation to all the elements of a vector. If we wanted to multiply all the elements of the `y` vector, we should have done `y .*= 2`. The following `=` is just a short way of writing an incrementation, in this sense, `y .+= 2` is a shorter syntax of `y = y .+ 2`.
+The `.*` function is a vectorized multiplication. In Julia, adding a dot `.` before an operator allows to apply this operation to all the elements of a vector. If we wanted to add $2$ to all the elements of the `a` vector, we should have done `a .+= 2`. The following `=` is just a short way of writing an incrementation, in this sense, `a .*= b` is a shorter syntax of `a = a .* b`.
 
-The other function `size()` is useful to get more information about the type of variable we consider. In our case, it yields `(100,)` because it is a $100$ rows vector. We would get the same. 
+The other function `size()` is useful to get more information about the type of variable we consider. In our case, it yields `(10,)` because it is a $10$ rows vector. We would get the same. 
 
 Now, let us plot the data we just created : 
 
@@ -49,8 +49,8 @@ Now, let us plot the data we just created :
 plot(
 	scatter(x,y, label = "data"),
 	title = "Generating Random Data",
-	ylabel = "Random variable + 2",
-	xlabel = "Random variable",
+	ylabel = "Random variable",
+	xlabel = "x",
 )
 ```
 
@@ -68,7 +68,7 @@ I found two simple ways to run this model :
 First, with the GLM package : 
 
 ```{julia}
-model = lm(@formula(y ~ x), (;x, y))
+model = lm(@formula(y ~ x), (;y, x))
 GLM.coeftable(model)
 model
 ```
@@ -76,7 +76,7 @@ model
 Now, if we want to plot our model with the data, we can run : 
 ```{julia}
 coefs = GLM.coef(model)
-plot!((x) -> coefs[1] + coefs[2] * x, 0, 1, label="model", 
+plot!((x) -> coefs[1] + coefs[2] * x, label="model", 
 	title = "Simple linear regression")
 ```
 
@@ -85,7 +85,7 @@ If we want to include the equation of our linear model in the legend of the plot
 ```{julia}
 using LaTeXStrings
 plot(scatter(x,y, label = false),
-	(x) -> coefs[1] + coefs[2] * x, 0, 1, label=latexstring("y=$(coefs[1]) + $(coefs[2]) * x"))
+	(x) -> coefs[1] + coefs[2] * x, label=latexstring("y=$(coefs[1]) + $(coefs[2]) * x"))
 ```
 
 And if we want it to be outside the plot : 
@@ -103,7 +103,7 @@ X = [ones(length(x)) x]
 (X\y)
 ```
 
-The first line creates a matrix $X$ such that $X\in\mathbb{R}^{100\times 100}$, with its first columns being only ones, and its second column being the vector of $x$.
+The first line creates a matrix $X$ such that $X\in\mathbb{R}^{10\times 10}$, with its first columns being only ones, and its second column being the vector of $x$.
 
 The second line does...
 
@@ -145,60 +145,64 @@ Again, we first have to generate and plot the data :
 
 ```{julia}
 # Generating random data :
-w,y,x,z = (rand(100) for _ in 1:5)
+x,y,w,z = (rand(10) for _ in 1:4)
 
 # Plotting the data :
 plot(scatter(x, y, z, marker_z = w, label="data"))
 ```
 
+### Rotatable plot
+
 Now, we could continue with the plot function of the default **gr** backend package of `Plots`, but to get rotable 3D plots, we can use the PlotlyJS package.
 Since Plot.jl integrates plotly, we could try just adding `plotly()` : 
 
-
 ```{julia}
-#| eval: false
+#| eval: true
 # We switch from the gr() to the plotlyjs() backend within Plots :
 plotlyjs()
 # We plot :
 plot(scatter(x, y, z;
 		marker_z = w,
 		markersize = 2, 
-		label = "data"))
-
+		label = "data", 
+		xlabel = "x",
+		ylabel = "y", 
+		zlabel = "z"))
 ```
+It is now time for some model. 
+Let us consider that the variable `z` can be explained linearly by the variables `x` and `y`, and that `w` does not provide supplementary information. 
 
-Now, let us run the model. 
-Let us say that we want to explain y by w, x, and z.
-We are going to use the two methods we saw previously. 
+We are going to use the two methods we saw previously :
 
 ```{julia}
 # Using GLM : 
 @time begin 
-	model = lm(@formula(y ~ w + x + z), (;w, x, y, z))
+	model = lm(@formula(z ~ x + y), (;x, y, z))
 	coefs = GLM.coef(model)
+	coefs
 end
 # Using matrix computations :
 @time begin
-	X = transpose([transpose(ones(length(x))); transpose(x); transpose(z); transpose(w)])
-	X\y
+	X = [ones(length(x)) x y]
+	X\z
 end
-# coefs are the same as X\y
 ```
 
-Now let's try to plot this regressin (it does not work yet) : 
-```{julia}
-size(coefs)
-```
+As before, both results are approximatively the same, with a small advantage for the matrix computation in performance terms. 
+
+### Plotting the multinomial regression 
+
+Now let's try to plot the plane of this regression : 
 
 ```{julia}
-size(w)
-size(x)
-size(z)
+linear_model(x,y) = coefs[1] .+ coefs[2] * x .+ coefs[3] * y
+plot(x,y,linear_model,
+	st=:surface,
+	label="model",
+	xlabel ="x",
+	ylabel = "y",
+	zlabel = "z")
+
 ```
 
-Trying to plot : (Does not work)
-```{julia}
-# | eval: false
-plot!((x) -> coefs[1] + coefs[2] * x, 0, 1, label="fit_exact")
-plot!((x) -> coefs[1] + coefs[2] * w + coefs[3] * x + coefs[4] * z, 0,1, label = "fit")
-```
+While I did not manage to plot simulatneously the points and the surface on the plot, it seemed a satisfactory result for the moment. 
