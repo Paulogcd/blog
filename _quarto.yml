@@ -24,6 +24,8 @@ website:
           - text: Report a Bug
             href:  https://github.com/Paulogcd/blog/issues
 
+link-external-newwindow: true
+
 format:
   html:
     theme: cosmo

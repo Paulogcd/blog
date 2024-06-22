@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/1_regressions_julia/index.html",
       "/posts/purpose_statement/index.html"
     ]
   }
