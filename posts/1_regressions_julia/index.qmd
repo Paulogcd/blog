@@ -41,7 +41,7 @@ The function `rand()` in Julia allows to randomly generate numbers. The default 
 
 The `.+` function is a vectorized addition. In Julia, adding a dot `.` before an operator allows to apply this operation to all the elements of a vector. If we wanted to multiply all the elements of the `y` vector, we should have done `y .*= 2`. The following `=` is just a short way of writing an incrementation, in this sense, `y .+= 2` is a shorter syntax of `y = y .+ 2`.
 
-The other function `size()` is useful to get more information about the type of variable we consider. In our case, it yields `(100,)` because it is a $100$ rows vector. We would get the same 
+The other function `size()` is useful to get more information about the type of variable we consider. In our case, it yields `(100,)` because it is a $100$ rows vector. We would get the same. 
 
 Now, let us plot the data we just created : 
 
@@ -76,7 +76,22 @@ model
 Now, if we want to plot our model with the data, we can run : 
 ```{julia}
 coefs = GLM.coef(model)
-plot!((x) -> coefs[1] + coefs[2] * x, 0, 1, label="model")
+plot!((x) -> coefs[1] + coefs[2] * x, 0, 1, label="model", 
+	title = "Simple linear regression")
+```
+
+If we want to include the equation of our linear model in the legend of the plot, we can use the LaTeXStrings.jl package : 
+
+```{julia}
+using LaTeXStrings
+plot(scatter(x,y, label = false),
+	(x) -> coefs[1] + coefs[2] * x, 0, 1, label=latexstring("y=$(coefs[1]) + $(coefs[2]) * x"))
+```
+
+And if we want it to be outside the plot : 
+
+```{julia}
+plot!(legend=:outerbottom, legendcolumns=1)
 ```
 
 ### Matrix computation
@@ -84,11 +99,13 @@ plot!((x) -> coefs[1] + coefs[2] * x, 0, 1, label="model")
 Second, with the built-in matrix computation function : 
 
 ```{julia}
-vec_1 = ones(length(x))
-X = transpose([transpose(vec_1);transpose(x)])
+X = [ones(length(x)) x] 
 (X\y)
 ```
 
+The first line creates a matrix $X$ such that $X\in\mathbb{R}^{100\times 100}$, with its first columns being only ones, and its second column being the vector of $x$.
+
+The second line does...
 
 ### Performance comparison
 
