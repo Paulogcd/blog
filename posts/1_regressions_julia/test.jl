@@ -68,13 +68,26 @@ pl= PlotlyJS.Plot(PlotlyJS.surface(x=ul, y=ul, z = ul,
 
 using Plots; plotlyjs()
 
+# works :
+
+# 1 
 x = y = range(0,1, length = 10)
 X = [ones(length(x)) x y]
 coefs = X\z
 model = coefs[1] .+ coefs[2] * x .+ coefs[3] * y
 plot(x, y, model, st=:surface)
-
+# 2
 x=range(-2,stop=2,length=100)
 y=range(sqrt(2),stop=2,length=100)
 f(x,y) = x*y-x-y+1
 plot(x,y,f,st=:surface,camera=(-30,30))
+
+# Attempt : 
+using GLM
+plotlyjs()
+x,y,w,z = (rand(10) for _ in 1:4)
+plot(scatter(x, y, z, marker_z = w, label="data"))
+model = lm(@formula(z ~ x + y), (;x, y, z))
+coefs = GLM.coef(model)
+linear_model(x,y) = coefs[1] .+ coefs[2] * x .+ coefs[3] * y
+plot(x,y,linear_model,st=:surface)
