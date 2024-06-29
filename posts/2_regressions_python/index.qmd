@@ -1,0 +1,120 @@
+---
+title: "Linear Regressions with Python"
+author: "Paulo Gugelmo Cavalheiro Dias"
+date: today
+categories:
+ - python
+ - statistics
+engine: jupyter
+draft: true
+---
+
+In this article, I will try to do linear regressions with Python. 
+This is also an occasion for me to try python with Quarto. 
+
+# Simple linear regression
+
+## Generating data
+
+A simple linear regression is a statistical model used when trying to explain one continuous variable with another continuous variable. 
+Like in the previous article with Julia, let us first generate some random data. 
+For this, I found two main libraries. 
+The first one is the `random` library, and the second one is `numpy`.
+
+With the random library, we can use the `random` method to generate by default a float number between 0 and 1. 
+A way to create a vector of 100 randome value is to ise the random method between square brackets, followed by the for instruction, similar to the one in Julia. 
+This will generate a list of size 100, such that : 
+
+```{python}
+import random, operator
+print("Hello World")
+y = ([random.random() for _ in range(100)])
+x = ([random.random()*y[_] for _ in range(100)])
+```
+Now, let's plot it. To do that, we can use the matplotlib.pyplot package : 
+
+```{python}
+import matplotlib.pyplot
+
+matplotlib.pyplot.plot(x,y, "ro")
+matplotlib.pyplot.scatter(x,y)
+```
+
+Without the "ro" argument, it would have plotted points linked by a line, like in Julia. 
+We can also use the scatter() function.
+
+## Running a linear regression
+
+```{python}
+import scipy
+model = scipy.stats.linregress(x,y)
+model
+```
+
+We now can plot it like that : 
+
+```{python}
+slope, intercept, r, p, std_err = scipy.stats.linregress(x, y)
+
+def myfunc(x):
+  return slope * x + intercept
+
+mymodel = list(map(myfunc, x))
+
+matplotlib.pyplot.scatter(x,y)
+matplotlib.pyplot.plot(x, mymodel)
+```
+
+If we only want the relevant information for our plot : 
+
+```{python}
+import numpy
+def f(x):
+    return scipy.stats.linregress(x, y)[1]+numpy.dot(x,scipy.stats.linregress(x, y)[0])
+
+float(scipy.stats.linregress(x, y)[1]),float(scipy.stats.linregress(x, y)[0])
+```
+
+If we now want to plot : 
+
+```{python}
+matplotlib.pyplot.scatter(x,y)
+matplotlib.pyplot.plot(x, f(x))
+```
+This is a test. 
+
+# Multiple linear regression
+
+## Static 3D Plot :
+
+```{python}
+x,y,z = (numpy.dot([random.random() for _ in range(100)],_) for _ in (1,2,3))
+len(y)
+```
+
+```{python}
+A = matplotlib.pyplot.figure()
+B = A.add_subplot(projection='3d')
+B.scatter(x,y,z)
+B.set_xlabel("X")
+B.set_ylabel("Y")
+B.set_zlabel("Z")
+```
+
+## Rotatable 3D Plot 
+
+Now it's time for a rotatable plot, like in the previous article. 
+
+```{python}
+import plotly.express as px
+import pandas
+data = {'c1':[x],'c2':[y],'c3':[z]}
+X = pandas.DataFrame(data)
+fig = px.scatter_3d(X, x,y,z)
+fig.show()
+
+```
+
+Fortunately, the plotly package does also exist for Python :)
+
+This is great. 

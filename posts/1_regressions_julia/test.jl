@@ -91,3 +91,13 @@ model = lm(@formula(z ~ x + y), (;x, y, z))
 coefs = GLM.coef(model)
 linear_model(x,y) = coefs[1] .+ coefs[2] * x .+ coefs[3] * y
 plot(x,y,linear_model,st=:surface)
+
+# 
+
+x = range(0, 1, length=10)
+typeof(x)
+x[5]
+size(x)
+y = x
+model = lm(@formula(y ~ x), (;y, x))
+GLM.coeftable(model)

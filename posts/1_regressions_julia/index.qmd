@@ -1,7 +1,7 @@
 ---
 title: "Linear Regressions with Julia"
 author: "Paulo Gugelmo Cavalheiro Dias"
-date: today
+date: 06/22/2024
 categories:
  - julia 
  - statistics

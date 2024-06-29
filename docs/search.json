@@ -7,6 +7,13 @@
     "text": "Linear Regressions with Julia\n\n\n\n\n\n\njulia\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nJun 22, 2024\n\n\nPaulo Gugelmo Cavalheiro Dias\n\n\n\n\n\n\n\n\n\n\n\n\nPurpose statement\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMay 16, 2024\n\n\nPaulo Gugelmo Cavalheiro Dias\n\n\n\n\n\n\nNo matching items"
   },
   {
+    "objectID": "posts/purpose_statement/index.html",
+    "href": "posts/purpose_statement/index.html",
+    "title": "Purpose statement",
+    "section": "",
+    "text": "Hello, I am Paulo Gugelmo Cavalheiro Dias, currently a graduate level economics students, and this is the first post of my blog, in which I would like to write its purpose statement.\nI want this blog to be a way of sharing my progress in the topics I am interested in, i.e. economics and related subjects, such as programming for social sciences, environmental economics, etc. To do so, I will try to write regular reports on my work in social science, about my classes, readings and other materials."
+  },
+  {
     "objectID": "posts/1_regressions_julia/index.html",
     "href": "posts/1_regressions_julia/index.html",
     "title": "Linear Regressions with Julia",
@@ -26,12 +33,5 @@
     "title": "Linear Regressions with Julia",
     "section": "Multiple linear regression",
     "text": "Multiple linear regression\nHere, let us try to explain one continuous variable by multiple continuous variables.\nAgain, we first have to generate and plot the data :\n\n# Generating random data :\nx,y,w,z = (rand(100) for _ in 1:4)\n\n# Plotting the data :\nplot(scatter(x, y, z,\n    title = \"Static 3D plot\", \n    marker_z = w, label=\"data\"))\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\nRotatable plot\nNow, we could continue with the plot function of the default gr backend package of Plots, but to get rotable 3D plots, we can use the PlotlyJS package. Since Plot.jl integrates plotly, we could try just adding plotly() :\n\n# We switch from the gr() to the plotlyjs() backend within Plots :\nplotlyjs()\n# We plot :\nplot(scatter(x, y, z;\n        marker_z = w,\n        markersize = 2, \n        title = \"Rotatable 3D plot\",\n        label = \"data\", \n        xlabel = \"x\",\n        ylabel = \"y\", \n        zlabel = \"z\"))\n\n    \n    \n\n\nIt is now time for some model. Let us consider that the variable z can be explained linearly by the variables x and y, and that w does not provide supplementary information.\nWe are going to use the two methods we saw previously :\n# Using matrix computations :\n@time begin\n    X = [ones(length(x)) x y]\n    X\\z\nend\n# Using GLM : \n@time begin \n    model = lm(@formula(z ~ x + y), (;x, y, z))\n    coefs = GLM.coef(model)\n    coefs\nend\n\n\n\nBuilt-in matrix approach :\n\n\n  0.000045 seconds (33 allocations: 42.531 KiB)\n\n\n3-element Vector{Float64}:\n  0.36233333368806564\n -0.0017472521580554313\n  0.21145297793195228\n\n\n\n\nGLM package approach :\n\n\n  0.000265 seconds (205 allocations: 29.141 KiB)\n\n\n3-element Vector{Float64}:\n  0.362333333688066\n -0.0017472521580556221\n  0.2114529779319519\n\n\n\n\n\n\nAs before, both results are approximatively the same, with a small advantage for the matrix computation approach in performance terms.\n\n\n\n\n\nPlotting a multinomial regression\nNow let’s try to plot the plane of this regression :\n\nlinear_model(x,y) = coefs[1] .+ coefs[2] * x .+ coefs[3] * y\nplot(x,y,linear_model,\n    st=:surface,\n    title = \"Plane of a two dimensional linear regression\",\n    label=\"model\",\n    xlabel =\"x\",\n    ylabel = \"y\",\n    zlabel = \"z\")\n\n    \n    \n\n\nWhile I did not manage to plot simulatneously the points and the surface on the plot, it seemed a satisfactory result for the moment."
-  },
-  {
-    "objectID": "posts/purpose_statement/index.html",
-    "href": "posts/purpose_statement/index.html",
-    "title": "Purpose statement",
-    "section": "",
-    "text": "Hello, I am Paulo Gugelmo Cavalheiro Dias, currently a graduate level economics students, and this is the first post of my blog, in which I would like to write its purpose statement.\nI want this blog to be a way of sharing my progress in the topics I am interested in, i.e. economics and related subjects, such as programming for social sciences, environmental economics, etc. To do so, I will try to write regular reports on my work in social science, about my classes, readings and other materials."
   }
 ]
