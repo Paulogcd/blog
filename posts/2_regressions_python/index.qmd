@@ -11,6 +11,7 @@ draft: true
 
 In this article, I will try to do linear regressions with Python. 
 This is also an occasion for me to try python with Quarto. 
+This is a test. 
 
 # Simple linear regression
 
