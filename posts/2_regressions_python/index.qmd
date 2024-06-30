@@ -5,49 +5,134 @@ date: today
 categories:
  - python
  - statistics
-engine: jupyter
+engine: python3
 draft: true
 ---
 
 In this article, I will try to do linear regressions with Python. 
 This is also an occasion for me to try python with Quarto. 
-This is a test. 
-This is a test 2.
-This is a test 3.
-This is a test 3.
+
+# Quarto configuration for Python
+
+To work with python code in Quarto, we first have to use an engine that supports python. 
+For that, we can use `python3` or `jupyter` for examples. 
+Thus, in our `YAML` header, we would enter : 
+
+```{.yaml}
+---
+engine: python3
+# or : 
+engine: jupyter
+---
+```
+
+We can check our engines with quarto with the command `quarto check`. 
+This function is designed to "verify [the] correct functioning of Quarto installation" (from its description in documentation).
+Running it returns the versions of different kernels that we can use.
+
+Finally, to include python code in our Quarto file, we can write : 
+
+````
+```{{python}}
+# Some python code here
+```
+````
+
+For example : 
+
+```{python}
+# Getting the version of Python we are using : 
+import sys 
+sys.version_info
+```
+
+Here, we are for example using Python 3.12.
+
+## Running Julia and R in the same document 
+
+Depending on the engine we are using, we can also make use of other languages in the same Quarto document. 
+Specifying the `python3` engine in the `YAML` header of our Quarto document, we can run Julia and R in it.
+For that, we need packages, such as `JuliaCall` for using Julia with R.
+
+Testing Julia yields : 
+```{julia}
+# Getting the version of Julia we are using : 
+using InteractiveUtils
+InteractiveUtils.versioninfo()
+```
+
+Testing R yields : 
+```{R}
+# Getting the version of R we are using : 
+version
+```
+
+Since the rest of the article will exclusively be using python, we will not mention further details of engines in Quarto.
+It is however interesting to keep in mind that Quarto allows this multiple integration.
 
 # Simple linear regression
 
+This section of the article treats how to do a simple linear regression with Python. 
+We will first generate random data, we will plot it, and we will then add the linear regression in our plot. 
+
 ## Generating data
 
-A simple linear regression is a statistical model used when trying to explain one continuous variable with another continuous variable. 
-Like in the previous article with Julia, let us first generate some random data. 
-For this, I found two main libraries. 
-The first one is the `random` library, and the second one is `numpy`.
+I found two main libraries to generate random data in Python. 
+The first one is the `random` library, and the second one is the `numpy` library.
 
 With the random library, we can use the `random` method to generate by default a float number between 0 and 1. 
-A way to create a vector of 100 randome value is to ise the random method between square brackets, followed by the for instruction, similar to the one in Julia. 
+A way to create a vector of 100 random values is to use the `random` method between square brackets, followed by the `for` instruction, similar to the one in Julia. 
 This will generate a list of size 100, such that : 
 
 ```{python}
-import random, operator
-print("Hello World")
+import random
 y = ([random.random() for _ in range(100)])
 x = ([random.random()*y[_] for _ in range(100)])
 ```
-Now, let's plot it. To do that, we can use the matplotlib.pyplot package : 
+
+Let us comment a bit this code : 
+
+- It is possible to call methods with the name of their libraries in front of it.
+In this sense, `random.random` refers to the method `random` inside the `random` library.
+- The underscore syntax `_` combined with `for` loops to iterated for a set number of times. 
+By default, it just ass
+- The `range()` function allows to
+> Return an object that produces a sequence of integers from start (inclusive) to stop (exclusive) by step.
+Range(i, j) produces i, i+1, i+2, ..., j-1. Start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.
+These are exactly the valid indices for a list of 4 elements.
+When step is given, it specifies the increment (or decrement).
+
+A second way of generating random data is using the numpy library. 
+
+```{python}
+import numpy
+print("test")
+```
+
+## Plotting the data
+
+Now that we generated some data, let us plot it.
+To do that, we can use the [matplotlib library](https://matplotlib.org/). 
+More specifically, we are going to use pyplot inside matplotlib, and are thus going to import `matplotlib.pyplot` :
 
 ```{python}
 import matplotlib.pyplot
-
-matplotlib.pyplot.plot(x,y, "ro")
 matplotlib.pyplot.scatter(x,y)
 ```
 
-Without the "ro" argument, it would have plotted points linked by a line, like in Julia. 
-We can also use the scatter() function.
+- The `scatter()` function of `matplotlib.pyplot` allows to plot a scatterplot with two vectors of the same size.
 
-## Running a linear regression
+>> The `scatter()` "function" could also being called a "method".
+This distinction seems to also exist in other programming languages and is definitely worth understanding. 
+For the sake of linear regressions, it does not matter for now to develop a full grasp of this distinction.
+In the rest of this article, we will thus stick to the "function" term. 
+We should however keep in mind that there exists a distinction between the terms.
+
+## Fitting our model
+
+We are now going to fit our statistical model with our randomly generated values. 
+In order for us to do that, we can use the `scipy.stats` library.
+This library has a `linregress()` function that allows to compute the OLS estimates to explain the second variable with the second one : 
 
 ```{python}
 import scipy
@@ -55,7 +140,8 @@ model = scipy.stats.linregress(x,y)
 model
 ```
 
-We now can plot it like that : 
+We see that the `scipy.stats.linregress()` function returns a five elements object.
+To make it easier to see, we could generate five variables, define a function with those variables and plot a line based on this function : 
 
 ```{python}
 slope, intercept, r, p, std_err = scipy.stats.linregress(x, y)
@@ -64,37 +150,47 @@ def myfunc(x):
   return slope * x + intercept
 
 mymodel = list(map(myfunc, x))
+```
 
+Now, if we want to add this line to our plot, we can run : 
+
+```{python}
 matplotlib.pyplot.scatter(x,y)
 matplotlib.pyplot.plot(x, mymodel)
 ```
 
-If we only want the relevant information for our plot : 
+If we want only the more relevant information, we can choose to only work with the two first elements of the array, and plot it : 
 
 ```{python}
-import numpy
 def f(x):
     return scipy.stats.linregress(x, y)[1]+numpy.dot(x,scipy.stats.linregress(x, y)[0])
 
 float(scipy.stats.linregress(x, y)[1]),float(scipy.stats.linregress(x, y)[0])
-```
-
-If we now want to plot : 
-
-```{python}
 matplotlib.pyplot.scatter(x,y)
 matplotlib.pyplot.plot(x, f(x))
 ```
-This is a test. 
+
+Now that we covered a how to perform a simple linear regression with Python, let us move to a multiple linear regression.
 
 # Multiple linear regression
 
-## Static 3D Plot :
+In this section, we are going to perform a multiple linear regression. 
+First, we are going to generate data and fit our model.
+Then, we will plot a static scatter plot, and finally a rotatable plot. 
+
+## Running a multiple linear regression
+
+First, let us generate some random data and fit our model : 
 
 ```{python}
 x,y,z = (numpy.dot([random.random() for _ in range(100)],_) for _ in (1,2,3))
 len(y)
 ```
+
+## Plotting a static 3D plot
+
+If we now want to limit ourselves to a three dimensional problem, we can plot 3D graphs. 
+In this section, we are going to plot a static graph. 
 
 ```{python}
 A = matplotlib.pyplot.figure()
@@ -105,9 +201,13 @@ B.set_ylabel("Y")
 B.set_zlabel("Z")
 ```
 
-## Rotatable 3D Plot 
+## Plotting a rotatable 3D plot 
 
 Now it's time for a rotatable plot, like in the previous article. 
+Fortunately, the plotly library does also exist for Python, which is great, because I did not find any other library to get a similar result. 
+The thing with plotly is that it requires a syntax involving pandas. 
+I thus create a dataframe object from a dictionary with the three previously created vectors. 
+In the end, I get : 
 
 ```{python}
 import plotly.express as px
@@ -116,9 +216,12 @@ data = {'c1':[x],'c2':[y],'c3':[z]}
 X = pandas.DataFrame(data)
 fig = px.scatter_3d(X, x,y,z)
 fig.show()
-
 ```
 
-Fortunately, the plotly package does also exist for Python :)
+We note that this yields a plot with identical features to the ones obtained in the previous article with Julia. 
 
-This is great. 
+If we now want to show the plane that satisfies the OLS condition, we can run : 
+
+```{python}
+print("test")
+```
