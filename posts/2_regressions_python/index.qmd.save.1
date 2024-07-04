@@ -6,7 +6,7 @@ categories:
  - python
  - statistics
 engine: python3
-draft: true
+draft: false
 ---
 
 In this article, I will try to do linear regressions with Python. 
@@ -258,12 +258,12 @@ fig = px.scatter_3d(X, x,y,z, color=w)
 fig.show()
 ```
 
-We note that this yields a plot with similar features to the ones obtained in [the previous article with Julia](https://www.paulogcd.com/blog/posts/1_regressions_julia/). 
+:We note that this yields a plot with similar features to the ones obtained in [the previous article with Julia](https://www.paulogcd.com/blog/posts/1_regressions_julia/). 
 The reason for that is that both obtained plots are done using the plotly library. 
-
+:
 If we now want to show the three dimensional plane that satisfies the OLS equation, we could use several libraries. 
-
-Let us say that we want to explain the `z` variable by x and y.
+:
+L:et us say that we want to explain the `z` variable by x and y.
 One approach that seems to be widely used is to use the `sklearn` library. 
 More specifically, we could use the `sklearn.linear_model` package :  
 
@@ -272,26 +272,18 @@ import sklearn.linear_model
 
 # We create an object that regroups x and y : 
 regressors = numpy.array([[x],[y]])
-z = numpy.array([z])
 
 # Now, we compute the estimates using a multinomial linear regression : 
 
 # We create the object 'model' that has the LinearRegression() class from the sklearn.linear_model package : 
 model = sklearn.linear_model.LinearRegression()
 
-# We have to modify the dimensions of our data : 
-
+# We need to play a bit with the dimensionality of our object : 
+nsamples, nx, ny = regressors.st = train_dataset.reshape((nsamples,nx*ny))
+d2_train_dataset = train_dataset.reshape((nsamples,nx*ny))
 
 # We make it fit our data : 
-
-X = numpy.array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])
-Y = numpy.array([1, 2, 3, 4])
- 
-# Create an instance of the LinearRegression class
-reg = sklearn.linear_model.LinearRegression()
- 
-# Fit the model to the data
-len(regressors), len(z)
+model.fit(regressors,z)
 ```
 
 Now that we have determined our model, we can plot its three dimensional plane on a plot : 
@@ -302,3 +294,4 @@ fig.show()
 ```
 
 Test.
+

@@ -9,6 +9,7 @@ engine: python3
 draft: true
 ---
 
+
 In this article, I will try to do linear regressions with Python. 
 This is also an occasion for me to try Python with Quarto. 
 
@@ -44,11 +45,13 @@ Finally, to include python code in our Quarto file, we can write :
 
 For example : 
 
+
 ```{python}
 # Getting the version of Python we are using : 
 import sys 
 sys.version_info
 ```
+
 
 Here, we are for example using Python 3.12.
 
@@ -59,17 +62,21 @@ Specifying the `python3` engine in the `YAML` header of our Quarto document, we 
 For that, we need packages, such as `JuliaCall` for using Julia with R.
 
 Testing Julia yields : 
+
 ```{julia}
 # Getting the version of Julia we are using : 
 using InteractiveUtils
 InteractiveUtils.versioninfo()
 ```
 
+
 Testing R yields : 
+
 ```{R}
 # Getting the version of R we are using : 
 version
 ```
+
 
 Since the rest of the article will exclusively be using Python, we will not mention further details of engines in Quarto.
 It is however interesting to keep in mind that Quarto allows this multiple integration.
@@ -88,11 +95,13 @@ With the random library, we can use the `random` method to generate by default a
 A way to create a vector of 100 random values is to use the `random` method between square brackets, followed by the `for` instruction, similar to the one in Julia. 
 This will generate a list of size fixed, such that : 
 
+
 ```{python}
 import random
 y = ([random.random() for _ in range(100)])
 x = ([random.random()*y[_] for _ in range(100)])
 ```
+
 
 Let us comment a bit this code : 
 
@@ -110,10 +119,12 @@ When step is given, it specifies the increment (or decrement).
 A second way of generating random data is using the numpy library. 
 For that, we use the `numpy.random.rand()` method : 
 
+
 ```{python}
 import numpy
 numpy.random.rand(100)
 ```
+
 
 Here, the `numpy.random.rand()` method also generates a random real number between 0 and 1. 
 We are going to stick with the first x variable created for the rest of the section.
@@ -124,10 +135,12 @@ Now that we generated some data, let us plot it.
 To do that, we can use the [matplotlib library](https://matplotlib.org/). 
 More specifically, we are going to use pyplot inside matplotlib, and are thus going to import `matplotlib.pyplot` :
 
+
 ```{python}
 import matplotlib.pyplot
 matplotlib.pyplot.scatter(x,y)
 ```
+
 
 - The `scatter()` method of `matplotlib.pyplot` allows to plot a scatterplot with two vectors of the same size.
 
@@ -142,14 +155,17 @@ We are now going to fit our statistical model with our randomly generated values
 In order for us to do that, we can use the `scipy.stats` library.
 This library has a `linregress()` method that allows to compute the OLS estimates to explain the second variable with the first one : 
 
+
 ```{python}
 import scipy
 model = scipy.stats.linregress(x,y)
 model
 ```
 
+
 We see that the `scipy.stats.linregress()` method returns a five elements object.
 To make this method easier to use, we could generate five variables, define a function with those variables and plot a line based on this function : 
+
 
 ```{python}
 # We define the five variables from the linregress() method :
@@ -164,6 +180,7 @@ mymodel = list(map(myfunc, x))
 mymodel
 ```
 
+
 The definition of the variable `mymodel` is worth explaning a bit more in details.
 The `list()` function is used to create a `list` object (which is considered one of the most versatile objects in Python), like the `c()` function creates a vector in R.
 The `map()` function returns a map object, defined as : 
@@ -175,14 +192,17 @@ in the Python documentation.
 
 Now, if we want to add this line to our plot, we can run : 
 
+
 ```{python}
 matplotlib.pyplot.scatter(x,y)
 matplotlib.pyplot.plot(x, mymodel)
 ```
 
+
 While it is curious that the variable mymodel is displayed as a continuous line, it works, so I am fine with this solution for now.
 
 If we want only the more relevant information, we can choose to only work with the two first elements of the array, and plot it, we can do in a more concise way :
+
 
 ```{python}
 def f(x):
@@ -192,6 +212,7 @@ float(scipy.stats.linregress(x, y)[1]),float(scipy.stats.linregress(x, y)[0])
 matplotlib.pyplot.scatter(x,y)
 matplotlib.pyplot.plot(x, f(x))
 ```
+
 
 We note here that we are using the `numpy.dot()` method from the `numpy` library. 
 This method allows us to do the dot product of two different matrixes.
@@ -210,6 +231,7 @@ Then, we will plot a static scatter plot, and finally a rotatable plot.
 
 First, let us generate some random data and fit our model : 
 
+
 ```{python}
 # We randomly generate four variables of length 100 :
 w,x,y,z = (numpy.dot([random.random() for _ in range(100)],_) for _ in (1,2,3,4))
@@ -217,10 +239,12 @@ w,x,y,z = (numpy.dot([random.random() for _ in range(100)],_) for _ in (1,2,3,4)
 len(y)
 ```
 
+
 ## Plotting a static 3D plot
 
 If we now want to limit ourselves to a four dimensional problem, we can plot 3D graphs with colors representing the fourth dimension. 
 In this section, we are first going to plot a static graph. 
+
 
 ```{python}
 # We create the framework of a plot first, that we name "figure" : 
@@ -239,6 +263,7 @@ projection.set_ylabel("Y")
 projection.set_zlabel("Z")
 ```
 
+
 The syntax of this example can be a bit hard to understand at first, but is required when using `matplotlib.pyplot` library.
 
 ## Plotting a rotatable 3D plot 
@@ -249,6 +274,7 @@ However, to use plotly, we need the pandas library.
 We can thus create a dataframe object from a dictionary with the four previously created vectors. 
 In the end, we get : 
 
+
 ```{python}
 import plotly.express as px
 import pandas
@@ -258,6 +284,7 @@ fig = px.scatter_3d(X, x,y,z, color=w)
 fig.show()
 ```
 
+
 We note that this yields a plot with similar features to the ones obtained in [the previous article with Julia](https://www.paulogcd.com/blog/posts/1_regressions_julia/). 
 The reason for that is that both obtained plots are done using the plotly library. 
 
@@ -266,6 +293,7 @@ If we now want to show the three dimensional plane that satisfies the OLS equati
 Let us say that we want to explain the `z` variable by x and y.
 One approach that seems to be widely used is to use the `sklearn` library. 
 More specifically, we could use the `sklearn.linear_model` package :  
+
 
 ```{python}
 import sklearn.linear_model
@@ -294,11 +322,15 @@ reg = sklearn.linear_model.LinearRegression()
 len(regressors), len(z)
 ```
 
+
 Now that we have determined our model, we can plot its three dimensional plane on a plot : 
+
 
 ```{python}
 fig = px.scatter_3d(X, x,y,z, color=w)
 fig.show()
 ```
 
+
 Test.
+

@@ -6,7 +6,7 @@ categories:
  - python
  - statistics
 engine: python3
-draft: true
+draft: false
 ---
 
 In this article, I will try to do linear regressions with Python. 
@@ -15,9 +15,8 @@ This is also an occasion for me to try Python with Quarto.
 # Quarto configuration for Python
 
 This section is dedicated to using Python with [Quarto](https://quarto.org), since this website was done using Quarto (if you want to know more about it, you can check [their documentation here](https://quarto.org/docs/websites/) and [this project of mine](https://www.paulogcd.com/portfolio_tutorial/)).
-If you do not use Quarto, you can just skip this section. 
-
 The Quarto Markdown format (with the .qmd extension) allows to embed code and text, formatted with Markdown.
+
 To work with Python code in Quarto, we first have to use an engine that supports Python. 
 For that, we can use `python3` or `jupyter` for examples. 
 Thus, in our `YAML` header, we would enter : 
@@ -164,14 +163,8 @@ mymodel = list(map(myfunc, x))
 mymodel
 ```
 
-The definition of the variable `mymodel` is worth explaning a bit more in details.
-The `list()` function is used to create a `list` object (which is considered one of the most versatile objects in Python), like the `c()` function creates a vector in R.
-The `map()` function returns a map object, defined as : 
-
-> map(func, *iterables) --> map object
-Make an iterator that computes the function using arguments from each of the iterables.  Stops when the shortest iterable is exhausted.
-
-in the Python documentation. 
+Our last line is worth mentioning : 
+- 
 
 Now, if we want to add this line to our plot, we can run : 
 
@@ -180,9 +173,7 @@ matplotlib.pyplot.scatter(x,y)
 matplotlib.pyplot.plot(x, mymodel)
 ```
 
-While it is curious that the variable mymodel is displayed as a continuous line, it works, so I am fine with this solution for now.
-
-If we want only the more relevant information, we can choose to only work with the two first elements of the array, and plot it, we can do in a more concise way :
+If we want only the more relevant information, we can choose to only work with the two first elements of the array, and plot it : 
 
 ```{python}
 def f(x):
@@ -192,11 +183,6 @@ float(scipy.stats.linregress(x, y)[1]),float(scipy.stats.linregress(x, y)[0])
 matplotlib.pyplot.scatter(x,y)
 matplotlib.pyplot.plot(x, f(x))
 ```
-
-We note here that we are using the `numpy.dot()` method from the `numpy` library. 
-This method allows us to do the dot product of two different matrixes.
-In our case, doing only `x * scipy.stats.linregress(x,y)[0]` would have returned an error, since `x` and the other term are not of the same dimension.
-This method thus allows to avoid this error by vectorizing the multiplication. 
 
 Now that we covered a how to perform a simple linear regression with Python, let us move to a multiple linear regression.
 
@@ -211,94 +197,47 @@ Then, we will plot a static scatter plot, and finally a rotatable plot.
 First, let us generate some random data and fit our model : 
 
 ```{python}
-# We randomly generate four variables of length 100 :
-w,x,y,z = (numpy.dot([random.random() for _ in range(100)],_) for _ in (1,2,3,4))
-# Just to check the length : 
+x,y,z = (numpy.dot([random.random() for _ in range(100)],_) for _ in (1,2,3))
 len(y)
 ```
 
 ## Plotting a static 3D plot
 
-If we now want to limit ourselves to a four dimensional problem, we can plot 3D graphs with colors representing the fourth dimension. 
-In this section, we are first going to plot a static graph. 
+If we now want to limit ourselves to a three dimensional problem, we can plot 3D graphs. 
+In this section, we are going to plot a static graph. 
 
 ```{python}
-# We create the framework of a plot first, that we name "figure" : 
-figure = matplotlib.pyplot.figure()
-
-# In this figure, we are going to use the add_subplot method to create a three dimensional projection : 
-projection = figure.add_subplot(projection='3d')
-
-# In this three dimensional space, we are going to project our points in a scatterplot way.
-# The argument 'c' stands for the color of the points :
-projection.scatter(x,y,z, c = w)
-
-# Finally, we give each of our axis a name : 
-projection.set_xlabel("X")
-projection.set_ylabel("Y")
-projection.set_zlabel("Z")
+A = matplotlib.pyplot.figure()
+B = A.add_subplot(projection='3d')
+B.scatter(x,y,z)
+B.set_xlabel("X")
+B.set_ylabel("Y")
+B.set_zlabel("Z")
 ```
-
-The syntax of this example can be a bit hard to understand at first, but is required when using `matplotlib.pyplot` library.
 
 ## Plotting a rotatable 3D plot 
 
 Now it's time for a rotatable plot, like in the previous article. 
-Fortunately, the plotly library does also exist for Python, which is great, because I did not find any other library that yielded a similar result. 
-However, to use plotly, we need the pandas library.  
-We can thus create a dataframe object from a dictionary with the four previously created vectors. 
-In the end, we get : 
+Fortunately, the plotly library does also exist for Python, which is great, because I did not find any other library to get a similar result. 
+The thing with plotly is that it requires a syntax involving pandas. 
+I thus create a dataframe object from a dictionary with the three previously created vectors. 
+In the end, I get : 
 
 ```{python}
 import plotly.express as px
 import pandas
-data = {'c1':[x],'c2':[y],'c3':[z],'c4':[w]}
+data = {'c1':[x],'c2':[y],'c3':[z]}
 X = pandas.DataFrame(data)
-fig = px.scatter_3d(X, x,y,z, color=w)
+fig = px.scatter_3d(X, x,y,z)
 fig.show()
 ```
 
-We note that this yields a plot with similar features to the ones obtained in [the previous article with Julia](https://www.paulogcd.com/blog/posts/1_regressions_julia/). 
-The reason for that is that both obtained plots are done using the plotly library. 
+We note that this yields a plot with identical features to the ones obtained in the previous article with Julia. 
 
-If we now want to show the three dimensional plane that satisfies the OLS equation, we could use several libraries. 
-
-Let us say that we want to explain the `z` variable by x and y.
-One approach that seems to be widely used is to use the `sklearn` library. 
-More specifically, we could use the `sklearn.linear_model` package :  
+If we now want to show the plane that satisfies the OLS condition, we can run : 
 
 ```{python}
-import sklearn.linear_model
-
-# We create an object that regroups x and y : 
-regressors = numpy.array([[x],[y]])
-z = numpy.array([z])
-
-# Now, we compute the estimates using a multinomial linear regression : 
-
-# We create the object 'model' that has the LinearRegression() class from the sklearn.linear_model package : 
-model = sklearn.linear_model.LinearRegression()
-
-# We have to modify the dimensions of our data : 
-
-
-# We make it fit our data : 
-
-X = numpy.array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])
-Y = numpy.array([1, 2, 3, 4])
- 
-# Create an instance of the LinearRegression class
-reg = sklearn.linear_model.LinearRegression()
- 
-# Fit the model to the data
-len(regressors), len(z)
+print("test")
 ```
 
-Now that we have determined our model, we can plot its three dimensional plane on a plot : 
-
-```{python}
-fig = px.scatter_3d(X, x,y,z, color=w)
-fig.show()
-```
-
-Test.
+TEST
