@@ -1,18 +1,18 @@
 ---
 title: "Linear Regressions with Python"
 author: "Paulo Gugelmo Cavalheiro Dias"
-date: today
+date: 07/05/2024
 categories:
  - python
  - statistics
 engine: python3
-draft: true
+draft: false
 ---
 
 In this article, I will try to do linear regressions with Python. 
 This is also an occasion for me to try Python with Quarto. 
 
-# Quarto configuration for Python
+# 1. Quarto configuration for Python
 
 This section is dedicated to using Python with [Quarto](https://quarto.org), since this website was done using Quarto (if you want to know more about it, you can check [their documentation here](https://quarto.org/docs/websites/) and [this project of mine](https://www.paulogcd.com/portfolio_tutorial/)).
 If you do not use Quarto, you can just skip this section. 
@@ -52,7 +52,7 @@ sys.version_info
 
 Here, we are for example using Python 3.12.
 
-## Running Julia and R in the same document 
+## 1.1. Running Julia and R in the same document 
 
 Depending on the engine we are using, we can also make use of other languages in the same Quarto document. 
 Specifying the `python3` engine in the `YAML` header of our Quarto document, we can run Julia and R in it.
@@ -74,12 +74,12 @@ version
 Since the rest of the article will exclusively be using Python, we will not mention further details of engines in Quarto.
 It is however interesting to keep in mind that Quarto allows this multiple integration.
 
-# Simple linear regression
+# 2. Simple linear regression
 
 This section of the article treats how to do a simple linear regression with Python. 
 We will first generate random data, we will plot it, and we will then add the linear regression to our plot. 
 
-## Generating data
+## 2.1. Generating data
 
 I found two main libraries to generate random data in Python. 
 The first one is the `random` library, and the second one is the `numpy` library.
@@ -118,7 +118,7 @@ numpy.random.rand(100)
 Here, the `numpy.random.rand()` method also generates a random real number between 0 and 1. 
 We are going to stick with the first x variable created for the rest of the section.
 
-## Plotting the data
+## 2.2. Plotting the data
 
 Now that we generated some data, let us plot it.
 To do that, we can use the [matplotlib library](https://matplotlib.org/). 
@@ -136,7 +136,7 @@ This distinction seems to also exist in other programming languages and is defin
 For the sake of linear regressions, it does not matter for now to develop a full understanding of this distinction.
 In the rest of this article, we will thus stick to the "method" term without further explanation. 
 
-## Fitting our model
+## 2.3. Fitting our model
 
 We are now going to fit our statistical model with our randomly generated values. 
 In order for us to do that, we can use the `scipy.stats` library.
@@ -200,15 +200,17 @@ This method thus allows to avoid this error by vectorizing the multiplication.
 
 Now that we covered a how to perform a simple linear regression with Python, let us move to a multiple linear regression.
 
-# Multiple linear regression
+# 3. Multiple linear regression
 
 In this section, we are going to perform a multiple linear regression. 
 First, we are going to generate data and fit our model.
-Then, we will plot a static scatter plot, and finally a rotatable plot. 
+Then, we will plot a static scatter plot, and finally a 3D rotatable plot.
 
-## Running a multiple linear regression
+## 3.1. Running a multiple linear regression
 
-First, let us generate some random data and fit our model : 
+First, let us generate some random data and fit our model. 
+
+To generate random data, we can do : 
 
 ```{python}
 # We randomly generate four variables of length 100 :
@@ -217,13 +219,63 @@ w,x,y,z = (numpy.dot([random.random() for _ in range(100)],_) for _ in (1,2,3,4)
 len(y)
 ```
 
-## Plotting a static 3D plot
+To run a multinomial linear regression that satisfies the OLS equation, we could use several libraries. 
+Let us say that we want to explain the `z` variable by x and y.
+
+### 3.1.1. The sklearn library
+
+One approach that seems to be widely used is to use the `sklearn` library. 
+More specifically, we could use the `sklearn.linear_model` package :  
+
+```{python}
+import sklearn.linear_model
+
+# We create an object that regroups x, y and w :
+regressors = numpy.column_stack((x,y,w))
+
+# We create the object 'model' that has the LinearRegression() class from the sklearn.linear_model package : 
+model = sklearn.linear_model.LinearRegression()
+ 
+# Fit the model to the data
+model.fit(regressors, z)
+
+model.coef_
+model.intercept_
+```
+
+The model.intercept_ value is the intercept of z, and the coefficients are consistent with the regressors object. 
+The first one corresponds to the effect of x, the second to the effect of y, and the last one to the effect of w. 
+
+### 3.1.2. The statsmodels library
+
+To get a nicer display and final object, we can alternatively use the statsmodels library.
+
+```{python}
+import statsmodels.api
+
+# Create the object and specify an intercept :
+regressors = statsmodels.api.add_constant(regressors)
+model = statsmodels.api.OLS(z,regressors)
+
+# Run the model :
+results = model.fit()
+
+# Print the regression table : 
+print(results.summary())
+```
+
+We can also access to the itnercept and the coefficients directly, by doing : 
+```{python}
+results.params
+```
+
+## 3.2. Plotting a static 3D plot
 
 If we now want to limit ourselves to a four dimensional problem, we can plot 3D graphs with colors representing the fourth dimension. 
 In this section, we are first going to plot a static graph. 
 
 ```{python}
-# We create the framework of a plot first, that we name "figure" : 
+# We first create the framework of a plot, that we name "figure" : 
 figure = matplotlib.pyplot.figure()
 
 # In this figure, we are going to use the add_subplot method to create a three dimensional projection : 
@@ -241,64 +293,73 @@ projection.set_zlabel("Z")
 
 The syntax of this example can be a bit hard to understand at first, but is required when using `matplotlib.pyplot` library.
 
-## Plotting a rotatable 3D plot 
+## 3.3. Plotting a rotatable 3D plot 
 
 Now it's time for a rotatable plot, like in the previous article. 
 Fortunately, the plotly library does also exist for Python, which is great, because I did not find any other library that yielded a similar result. 
 However, to use plotly, we need the pandas library.  
 We can thus create a dataframe object from a dictionary with the four previously created vectors. 
-In the end, we get : 
+If we only want to display a 3D scatter plot, we can run : 
 
 ```{python}
-import plotly.express as px
+import plotly.express
 import pandas
+
+# We create a four columns dataframe with our four previously generated vectors : 
 data = {'c1':[x],'c2':[y],'c3':[z],'c4':[w]}
 X = pandas.DataFrame(data)
-fig = px.scatter_3d(X, x,y,z, color=w)
+
+fig = plotly.express.scatter_3d(X, x,y,z, color=w)
 fig.show()
 ```
 
 We note that this yields a plot with similar features to the ones obtained in [the previous article with Julia](https://www.paulogcd.com/blog/posts/1_regressions_julia/). 
 The reason for that is that both obtained plots are done using the plotly library. 
 
-If we now want to show the three dimensional plane that satisfies the OLS equation, we could use several libraries. 
-
-Let us say that we want to explain the `z` variable by x and y.
-One approach that seems to be widely used is to use the `sklearn` library. 
-More specifically, we could use the `sklearn.linear_model` package :  
+For the rest of the section, we are going to limit ourselves to only two regressands, excluding the w variable, since the display will be easier to understand this way : 
 
 ```{python}
-import sklearn.linear_model
-
-# We create an object that regroups x and y : 
-regressors = numpy.array([[x],[y]])
-z = numpy.array([z])
-
-# Now, we compute the estimates using a multinomial linear regression : 
-
-# We create the object 'model' that has the LinearRegression() class from the sklearn.linear_model package : 
-model = sklearn.linear_model.LinearRegression()
-
-# We have to modify the dimensions of our data : 
-
-
-# We make it fit our data : 
-
-X = numpy.array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])
-Y = numpy.array([1, 2, 3, 4])
- 
-# Create an instance of the LinearRegression class
-reg = sklearn.linear_model.LinearRegression()
- 
-# Fit the model to the data
-len(regressors), len(z)
+X = numpy.column_stack((x,y))
+X = statsmodels.api.add_constant(X)
+model = statsmodels.api.OLS(z,X)
+results = model.fit()
+print(results.summary())
 ```
 
-Now that we have determined our model, we can plot its three dimensional plane on a plot : 
+Now, we need more lines to plot a surface. 
+More specifically, we are going to use plotly.graph_objects and make use of the meshgrid method : 
 
 ```{python}
-fig = px.scatter_3d(X, x,y,z, color=w)
+import plotly.graph_objects
+
+# We first store the information of our regression : 
+intercept, coef1, coef2 = results.params
+
+# We then create meshgrids for x,y, and z : 
+x_range = numpy.linspace(x.min(), x.max(), 10)
+y_range = numpy.linspace(y.min(), y.max(), 10)
+x_grid, y_grid = numpy.meshgrid(x_range, y_range)
+z_grid = intercept + coef1 * x_grid + coef2 * y_grid
+
+# We now generate a surface object with the grids we just created
+surface = plotly.graph_objects.Surface(
+    x=x_grid, y=y_grid, z=z_grid,
+    colorscale='Viridis', opacity=0.5
+)
+
+# We create a scatter object, to be able to plot it with the surface :
+scatter = plotly.graph_objects.Scatter3d(
+    x=x, y=y, z=z,
+    mode='markers',
+    marker=dict(size=5, color=w, colorscale='Viridis')
+)
+
+# We create a figure object, with the scatter and surface tha we just generated : 
+fig = plotly.graph_objects.Figure(data = [scatter, surface])
+
+# We display the figure : 
 fig.show()
 ```
 
-Test.
+This looks satisfactory. 
+I even manage to plot the points with the surface of the regression in the 3D plot. 
