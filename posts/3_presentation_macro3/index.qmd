@@ -1,0 +1,82 @@
+---
+title: "Literature Review of natural hazards damages"
+author: "Paulo Gugelmo Cavalheiro Dias"
+date: 06/22/2024
+categories:
+ - economics 
+ - environment
+ - natural hazard
+ - environmental damage
+draft: true
+---
+
+This is a draft for our Macro3 presentation. 
+Article : Junia Howell, James R. Elliott, Damages Done: The Longitudinal Impacts of Natural Hazards on Wealth Inequality in the United States, available [here](https://academic.oup.com/socpro/article-abstract/66/3/448/5074453?redirectedFrom=fulltext).
+
+Summary (paragraph per paragraph)
+
+# Introduction
+
+1 - There exists rising wealth inequality. Economic research tries to explain it by (1) income, (2) differential in Return on Investment (RoI), (3) policies. Without rejecting those approaches, this paper tries to use natural hazard damages to explain wealth inequality. 
+
+2 - The main reasons to care about the effect of natural hazard on wealth inequalities are : 
+
+- its scale : it is very costly.
+- its scope : 99,7% of the US counties have been affected by it since 2000.
+- its trajectory : with optimistic scenarios, the damages from natural hazards are projected to at least double (or quadruple) in 2050.
+
+3 - Research already showed tha poor people recover less than rich from natural hazard, even in relative terms. Also, research underlines the key role of recovery resources, and not only physical damages received. 
+
+4 - Globally, there is a consensus on this literature about the importance of the relationships between natural hazard and pre-existing social inequalities, and not natural hazards alone. 
+
+5 - They first do a literature review, then perform an empirical study of the different causes of wealth inequalities, with the dataset from : 
+
+- PSID : 1993-2013, individual data. 
+- SHELDUS : about natural hazard. 
+- FEMA : about federal help against natural hazards. 
+
+## Wealth inequality
+
+6 -
+
+(...)
+
+## Natural Hazard and Wealth Inequality
+
+11 - 
+
+(...)
+
+## Research Design 
+
+15 - 
+
+(...)
+
+## Data 
+
+17 - 
+
+(...)
+
+## Measurement 
+
+### Wealth Trajectories
+
+20 - 
+
+TABLE 1. 
+
+### Natural Hazard Damages
+
+### Other Key Variables
+
+### Control Variables 
+
+## Sampling and Modeling 
+
+28 - 
+
+(...)
+
+## Results

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Paulo Gugelmo Cavalheiro Dias">
+<meta name="dcterms.date" content="2024-06-22">
 
-<title>My Blog - Articles</title>
+<title>My Blog - Literature Review of natural hazards damages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,67 +68,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -144,19 +86,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./../"> 
+    <a class="nav-link" href="../../../"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./../projects"> 
+    <a class="nav-link" href="../../../projects"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./../contact.html"> 
+    <a class="nav-link" href="../../../contact.html"> 
 <span class="menu-text">Contact</span></a>
   </li>  
 </ul>
@@ -182,25 +124,64 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="julia">julia <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="statistics">statistics <span class="quarto-category-count">(2)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#wealth-inequality" id="toc-wealth-inequality" class="nav-link" data-scroll-target="#wealth-inequality">Wealth inequality</a></li>
+  <li><a href="#natural-hazard-and-wealth-inequality" id="toc-natural-hazard-and-wealth-inequality" class="nav-link" data-scroll-target="#natural-hazard-and-wealth-inequality">Natural Hazard and Wealth Inequality</a></li>
+  <li><a href="#research-design" id="toc-research-design" class="nav-link" data-scroll-target="#research-design">Research Design</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement">Measurement</a>
+  <ul class="collapse">
+  <li><a href="#wealth-trajectories" id="toc-wealth-trajectories" class="nav-link" data-scroll-target="#wealth-trajectories">Wealth Trajectories</a></li>
+  <li><a href="#natural-hazard-damages" id="toc-natural-hazard-damages" class="nav-link" data-scroll-target="#natural-hazard-damages">Natural Hazard Damages</a></li>
+  <li><a href="#other-key-variables" id="toc-other-key-variables" class="nav-link" data-scroll-target="#other-key-variables">Other Key Variables</a></li>
+  <li><a href="#control-variables" id="toc-control-variables" class="nav-link" data-scroll-target="#control-variables">Control Variables</a></li>
+  </ul></li>
+  <li><a href="#sampling-and-modeling" id="toc-sampling-and-modeling" class="nav-link" data-scroll-target="#sampling-and-modeling">Sampling and Modeling</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Articles</h1>
-</div>
+<h1 class="title">Literature Review of natural hazards damages</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">economics</div>
+    <div class="quarto-category">environment</div>
+    <div class="quarto-category">natural hazard</div>
+    <div class="quarto-category">environmental damage</div>
+  </div>
+  </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Paulo Gugelmo Cavalheiro Dias </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 22, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -210,122 +191,75 @@ window.Quarto = {
 </header>
 
 
+<p>This is a draft for our Macro3 presentation. Article : Junia Howell, James R. Elliott, Damages Done: The Longitudinal Impacts of Natural Hazards on Wealth Inequality in the United States, available <a href="https://academic.oup.com/socpro/article-abstract/66/3/448/5074453?redirectedFrom=fulltext">here</a>.</p>
+<p>Summary (paragraph per paragraph)</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>1 - There exists rising wealth inequality. Economic research tries to explain it by (1) income, (2) differential in Return on Investment (RoI), (3) policies. Without rejecting those approaches, this paper tries to use natural hazard damages to explain wealth inequality.</p>
+<p>2 - The main reasons to care about the effect of natural hazard on wealth inequalities are :</p>
+<ul>
+<li>its scale : it is very costly.</li>
+<li>its scope : 99,7% of the US counties have been affected by it since 2000.</li>
+<li>its trajectory : with optimistic scenarios, the damages from natural hazards are projected to at least double (or quadruple) in 2050.</li>
+</ul>
+<p>3 - Research already showed tha poor people recover less than rich from natural hazard, even in relative terms. Also, research underlines the key role of recovery resources, and not only physical damages received.</p>
+<p>4 - Globally, there is a consensus on this literature about the importance of the relationships between natural hazard and pre-existing social inequalities, and not natural hazards alone.</p>
+<p>5 - They first do a literature review, then perform an empirical study of the different causes of wealth inequalities, with the dataset from :</p>
+<ul>
+<li>PSID : 1993-2013, individual data.</li>
+<li>SHELDUS : about natural hazard.</li>
+<li>FEMA : about federal help against natural hazards.</li>
+</ul>
+<section id="wealth-inequality" class="level2">
+<h2 class="anchored" data-anchor-id="wealth-inequality">Wealth inequality</h2>
+<p>6 -</p>
+<p>(…)</p>
+</section>
+<section id="natural-hazard-and-wealth-inequality" class="level2">
+<h2 class="anchored" data-anchor-id="natural-hazard-and-wealth-inequality">Natural Hazard and Wealth Inequality</h2>
+<p>11 -</p>
+<p>(…)</p>
+</section>
+<section id="research-design" class="level2">
+<h2 class="anchored" data-anchor-id="research-design">Research Design</h2>
+<p>15 -</p>
+<p>(…)</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>17 -</p>
+<p>(…)</p>
+</section>
+<section id="measurement" class="level2">
+<h2 class="anchored" data-anchor-id="measurement">Measurement</h2>
+<section id="wealth-trajectories" class="level3">
+<h3 class="anchored" data-anchor-id="wealth-trajectories">Wealth Trajectories</h3>
+<p>20 -</p>
+<p>TABLE 1.</p>
+</section>
+<section id="natural-hazard-damages" class="level3">
+<h3 class="anchored" data-anchor-id="natural-hazard-damages">Natural Hazard Damages</h3>
+</section>
+<section id="other-key-variables" class="level3">
+<h3 class="anchored" data-anchor-id="other-key-variables">Other Key Variables</h3>
+</section>
+<section id="control-variables" class="level3">
+<h3 class="anchored" data-anchor-id="control-variables">Control Variables</h3>
+</section>
+</section>
+<section id="sampling-and-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="sampling-and-modeling">Sampling and Modeling</h2>
+<p>28 -</p>
+<p>(…)</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="python,statistics" data-listing-date-sort="1720130400000" data-listing-file-modified-sort="1720621849183" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1989">
-<div class="thumbnail">
-<p><a href="./posts/2_regressions_python/index.html" class="no-external"></a></p><a href="./posts/2_regressions_python/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/2_regressions_python/index_files/figure-html/unnamed-chunk-6-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2_regressions_python/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2_regressions_python/index.html" class="no-external">Linear Regressions with Python</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2_regressions_python/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('statistics'); return false;">
-statistics
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2_regressions_python/index.html" class="no-external">In this article, I will try to do linear regressions with Python. This is also an occasion for me to try Python with Quarto.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2_regressions_python/index.html" class="no-external">
-<div class="listing-date">
-Jul 5, 2024
-</div>
-<div class="listing-author">
-Paulo Gugelmo Cavalheiro Dias
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="julia,statistics" data-listing-date-sort="1719007200000" data-listing-file-modified-sort="1719901467268" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1159">
-<div class="thumbnail">
-<p><a href="./posts/1_regressions_julia/index.html" class="no-external"></a></p><a href="./posts/1_regressions_julia/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/1_regressions_julia/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/1_regressions_julia/index.html" class="no-external">Linear Regressions with Julia</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/1_regressions_julia/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('julia'); return false;">
-julia
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('statistics'); return false;">
-statistics
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/1_regressions_julia/index.html" class="no-external">The first time I heard about Julia was a few months ago, in an introductory class to programming. Since then, I have come to know a bit more about the reputation of the…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/1_regressions_julia/index.html" class="no-external">
-<div class="listing-date">
-Jun 22, 2024
-</div>
-<div class="listing-author">
-Paulo Gugelmo Cavalheiro Dias
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="news" data-listing-date-sort="1715810400000" data-listing-file-modified-sort="1718561199750" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="87">
-<div class="thumbnail">
-<p><a href="./posts/purpose_statement/index.html" class="no-external"></a></p><a href="./posts/purpose_statement/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/purpose_statement/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/purpose_statement/index.html" class="no-external">Purpose statement</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/purpose_statement/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/purpose_statement/index.html" class="no-external">Hello, I am Paulo Gugelmo Cavalheiro Dias, currently a graduate level economics students, and this is the first post of my blog, in which I would like to write its purpose…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/purpose_statement/index.html" class="no-external">
-<div class="listing-date">
-May 16, 2024
-</div>
-<div class="listing-author">
-Paulo Gugelmo Cavalheiro Dias
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

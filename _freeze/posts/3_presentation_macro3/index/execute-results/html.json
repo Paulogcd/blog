@@ -1,0 +1,12 @@
+{
+  "hash": "a75b8cfac2fa7ee222ef44e67ae71361",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: 'Literature Review - Junia Howell, James R. Elliott, Damages Done: The Longitudinal Impacts of Natural Hazards on Wealth Inequality in the United States'\nauthor: Paulo Gugelmo Cavalheiro Dias\ndate: 06/22/2024\ncategories:\n  - julia\n  - statistics\ndraft: true\n---\n\nThis is a draft for our Macro3 presentation. \n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
