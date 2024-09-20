@@ -144,4 +144,87 @@ They also include several control variables, at three main levels : the individu
 
 ## Results
 
-32 - 
+32 - The authors first mention the difference in aid against natural hazard damage between 1991-2001 and 2005-2007, showing a clear increase from $237 millions to $1,15 billion. 
+Also, they mention that some counties are especially touched by the phenomenon, such as the Linn County, in Iowa. 
+
+### Natural Hazard Damages and Wealth Inequality 
+
+33 - They then refer to Table 2. This table presents several models that try to explain wealth by multiple variables, depending on the model. 
+They first talk about the first model, that only takes the level of hazard damage and the year of the regression. 
+In the second model, they include all the control variables mentioned previously, and they see clearly that the race variables have a negative impact on wealth. 
+
+![Table 2.1](Table_2_1.png)
+![Table 2.2](Table_2_2.png)
+
+34 - In the third model, they also include interaction between hazard and race variables. 
+The effects of those interaction effects are strong and significant.
+The way to interpret them could be : for a Black person, being affected by a one dollar hazard damage explains a wealth decrease of 12.62 dollars in wealth accumulation from one period to the next one. 
+We can see the effect of the race variable in the Panel A.
+
+35 - The authors then test for the effect of education in the next model.
+The panel B is a projection of the model that takes into account the education variable. 
+In the y-axis, there is "Wealth in 2013".
+We can see the three panels of Figure 1 as : for a certain level of natural hazard damage, how much wealthy is a certain subgroup of the population ? 
+We see clearly that less educated people are poorer and this wealth inequality is increasing with the amount of natural damage the county went through. 
+
+36 - In the Model 5, they take into consideration the homeownership.
+They find that homeowners are richer in zones that are more exposed to natural hazards. 
+
+![Figure 1](Figure_1.png)
+
+37 - Testing all the variables, they find that the ones that cause the biggest wealth gap are race, education, and homeownership (REC).
+The way to think about it, is that natural hazards can affect people very differently depending on those three variables. 
+In the FIgure 2, they compare the wealth trajectory of an educated white owner and a 10-th grade black renter. 
+
+![Figure 2](Figure_2.png)
+
+38 - Finally, in the last model, model 7, they test for privae insurance. 
+First, they find that more private insurance predicts a bigger wealth accumulation, and seems therefore to confirm that it does bring larger payouts due to a better coverage. 
+Secondly, including private insurance does not reduce the effect of the other three main factors (race, education, homeownership). 
+In this sense, private insurance does not totally prevent wealth inequality increase due to natural hazards.
+
+### FEMA Aid and Wealth Inequality
+
+39 - They now want to test the FEMA aid : Does the FEMA aid differ in function of wealth ? 
+In Table 3, they try to explain the FEMA aid by hazard damge, controlling for total population, rurality scale and the year. 
+They do find that the effect exists, but is very weak, and not very robust. 
+Therefore, they rerun the models (only five this time), but this time including the FEMA aid and private insurance premium. 
+
+![Table 3](Table_3.png)
+
+40 - The main conclusion one can draw from these models is that FEMA aid and wealth inequalities are positively linked. 
+Also, Black and Latino people accumulate less when they live in counties that received a lot of FEMA aid. 
+The inverse is true for White people. 
+The effect can be seen in the Interaction Terms of the Model 1. 
+The way to interpret them, is again "being black and living in a county receiving FEMA aid" does affect in [coefficient] your wealth accumulation from one period to another.
+In the second model, they take out race interaction terms, but take into account interaction term between FEMA and Education. 
+In the third model, they include homeownership.
+
+![Table 4.1](Table_4_1.png)
+![Table 4.2](Table_4_2.png)
+
+41 - They also run the models in with interaction effects between the FEMA and othe control variables. 
+They find that "the more wealth one has, the more one benefits from living in a county that receives more FEMA aid".
+
+42 - The authors advance that the FEMA aid "polarize wealth along racial, educational, and initial wealth lines, as ecidenced by the statistically significant interaction coefficient".
+Then, in Figure 3, they reproduce the Figure 2, but with FEMA Aid in the x-axis. 
+The divergence seems even bigger.
+
+![Figure 3](Figure_3.png)
+
+## Conclusion
+
+43 - Wealth inequalities are explained by different elements, and this paper aims to show that natural hazards damages are one of them. 
+Also, they undrly the importance of taking into account the interaction between natural hazards damages and pre-existing social dynamics, such as race, education, and ownership.
+
+44 - In that way, they advance that we should think more about the policies managing environmental hazards. 
+
+45 - They recognize that the precise understanding on how natural hazards polarize wealth inequality is still incomplete. 
+They thus insist on further research and taking the aid into consideration in the study of wealth inequalities : "equal aid is not equitable aid". 
+
+46 - They advocate for a more important taking into consideration of the interactions between social and environmental dynamics. 
+For that, they advance that viewing the U.S. society as an inequal and heterogeneous group would be better in comparison to a monolitic group view. 
+THey make a reference to Stalling (2002), and re-underly the fact that natural hazards are more detrimental to socially marginalized groups. 
+They therefore advance that the FEMA help should mitigate this phenomenon, contrary to what is happening right now. 
+
+47 - They conclude by saying that the FEMA is necessary, but that we just have to rethink how aid is brought. 
