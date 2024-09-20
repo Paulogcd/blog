@@ -1,19 +1,23 @@
 ---
-title: "Literature Review of natural hazards damages"
+title: "Literature Review of natural hazards damages (in Progress)"
 author: "Paulo Gugelmo Cavalheiro Dias"
-date: 06/22/2024
+date: 09/20/2024
 categories:
  - economics 
  - environment
  - natural hazard
  - environmental damage
-draft: true
+draft: false
 ---
 
-This is a draft for our Macro3 presentation. 
-Article : Junia Howell, James R. Elliott, Damages Done: The Longitudinal Impacts of Natural Hazards on Wealth Inequality in the United States, available [here](https://academic.oup.com/socpro/article-abstract/66/3/448/5074453?redirectedFrom=fulltext).
+:::{.callout-warning}
+This is a draft for our Macro3 presentation. It is currently under construction. 
+:::
 
-Summary (paragraph per paragraph)
+This article aims to summarize in a detailed fashion the following article for a Macroeconomics 3 presentation. 
+
+> Article : Junia Howell, James R. Elliott, Damages Done: The Longitudinal Impacts of Natural Hazards on Wealth Inequality in the United States, available [here](https://academic.oup.com/socpro/article-abstract/66/3/448/5074453?redirectedFrom=fulltext).
+
 
 # Introduction
 
